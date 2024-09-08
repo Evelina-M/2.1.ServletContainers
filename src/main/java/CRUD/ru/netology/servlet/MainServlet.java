@@ -1,9 +1,11 @@
 package CRUD.ru.netology.servlet;
 
+import CRUD.ru.netology.config.JavaConfig;
 import CRUD.ru.netology.controller.PostController;
 import CRUD.ru.netology.exception.NotFoundException;
 import CRUD.ru.netology.repository.PostRepository;
 import CRUD.ru.netology.service.PostService;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,15 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 
 public class MainServlet extends HttpServlet {
     private PostController controller;
-    public static final String API_POSTS = "/api/posts";
-    public static final String API_POSTS_D = "/api/posts/\\d+";
     public static final String STR = "/";
 
     @Override
     public void init() {
-        final var repository = new PostRepository();
-        final var service = new PostService(repository);
-        controller = new PostController(service);
+        final var context = new AnnotationConfigApplicationContext(JavaConfig.class);
+        controller = context.getBean(PostController.class);
     }
 
     @Override
