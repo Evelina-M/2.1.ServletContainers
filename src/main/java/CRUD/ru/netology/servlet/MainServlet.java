@@ -3,8 +3,7 @@ package CRUD.ru.netology.servlet;
 import CRUD.ru.netology.config.JavaConfig;
 import CRUD.ru.netology.controller.PostController;
 import CRUD.ru.netology.exception.NotFoundException;
-import CRUD.ru.netology.repository.PostRepository;
-import CRUD.ru.netology.service.PostService;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.http.HttpServlet;
@@ -17,7 +16,7 @@ public class MainServlet extends HttpServlet {
 
     @Override
     public void init() {
-        final var context = new AnnotationConfigApplicationContext(JavaConfig.class);
+        final var context = new AnnotationConfigApplicationContext("ru.netology");
         controller = context.getBean(PostController.class);
     }
 
